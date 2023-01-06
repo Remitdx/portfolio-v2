@@ -1,0 +1,50 @@
+@keyframes gearRotationRight {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes gearRotationLeft {
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+.frame {
+  position: relative;
+  height: 300px;
+  width: 300px;
+  border: grey solid 1px;
+  border-radius: 4px;
+  background-color: #EEEEEE;
+
+  .gear-1 {
+    position: absolute;
+    animation: gearRotationRight 10s linear infinite;
+    rotate: 0;
+    top: 0%;
+    left: 0%;
+    width: 48%;
+    height: 48%;
+  }
+
+  .gear-2 {
+    position: absolute;
+    animation: gearRotationLeft 10s linear infinite;
+    rotate: -18deg;
+    top: 21%;
+    left: 41%;
+    width: 40%;
+    height: 40%;
+  }
+
+  .gear-3 {
+    animation: gearRotationRight 10s linear infinite;
+    position: absolute;
+    rotate: -6deg;
+    top: 55%;
+    left: 55%;
+    width: 45%;
+    height: 45%;
+  }
+}
