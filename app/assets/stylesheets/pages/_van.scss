@@ -1,0 +1,58 @@
+.background {
+  position: relative;
+  height: 500px;
+  width: 100%;
+  border: black solid 1px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  .layer-1 {
+    position: absolute;
+    top: -10%;
+    left: 0%;
+    width: 120%;
+    height: 100%;
+  }
+
+  .layer-2 {
+    position: absolute;
+    top: -10%;
+    left: 0%;
+    width: 120%;
+    height: 100%;
+  }
+
+  .layer-3 {
+    position: absolute;
+    top: -10%;
+    left: 0%;
+    width: 120%;
+    height: 100%;
+  }
+
+  .layer-4 {
+    position: absolute;
+    top: -10%;
+    left: 0%;
+    width: 120%;
+    height: 100%;
+  }
+
+  .layer-5 {
+    position: absolute;
+    top: -10%;
+    left: 0%;
+    width: 120%;
+    height: 100%;
+  }
+
+  .van {
+    position: absolute;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    top: 75%;
+    left: 5%;
+    width: auto;
+    height: 25%;
+  }
+}
