@@ -1,0 +1,49 @@
+.wall {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  border: solid 1px black;
+
+  .brick{
+    position:absolute;
+    height: 20%;
+  }
+
+  .html {
+    top: 80%;
+    left: 15%;
+  }
+
+  .css {
+    top: 80%;
+    left: 35%;
+  }
+
+  .rails {
+    top: 80%;
+    right: 15%;
+  }
+
+  .ruby {
+    top: 80%;
+    right: 35%;
+  }
+
+  .js {
+    top: 89%;
+    left: 67.5%;
+  }
+
+  .stimulus {
+    top: 0;
+    left: 0;
+  }
+
+  .crane {
+    height: 300px;
+    position: absolute;
+  }
+  .github{
+    position: absolute;
+  }
+}
