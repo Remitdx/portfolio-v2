@@ -8,13 +8,13 @@
   </section>
   <section class="presentation">
     <h2>Présentation</h2>
-    <%# CV %>
+    <%= link_to "CV en PDF", "/RT_CV_RoR.pdf", target: :_blank %>
     <p>capable de travailler seul ou en équipe pluridisciplinaire</p>
   </section>
   <section class="expertise">
     <h2>Mes domaines d'expertise</h2>
     <div class="row">
-      <div class="col">
+      <div class="col-12">
         <h3>Phase de conception de l'application : </h3>
         <ul>
           <li>Analyse et définition du besoin</li>
@@ -23,16 +23,13 @@
           <li>Spécifications techniques</li>
         </ul>
       </div>
-      <div class="col">
+      <div class="col-12">
         <%= render "gears" %>
         <p class="info">Scroll me !</p>
       </div>
     </div>
     <div class="row">
-      <div class="col">
-        <%= render "wall" %>
-      </div>
-      <div class="col">
+      <div class="col-12">
         <h3>Phase de développement :</h3>
         <ul>
           <li>Gestion de projet - respect de la qualité, délais et coûts</li>
@@ -43,18 +40,20 @@
         </ul>
         <span>REJOUER L'ANIMATION</span>
       </div>
+      <div class="col-12">
+        <%= render "wall" %>
+      </div>
     </div>
     <div class="row">
-      <div class="col">
+      <div class="col-12">
         <h3>Phase de vie de d'application :</h3>
         <ul>
           <li>Maintenance</li>
           <li>Développement de nouvelles fonctionnalités</li>
         </ul>
       </div>
-      <div class="col">
+      <div class="col-12">
         <%= render "van" %>
-
       </div>
     </div>
   </section>
@@ -64,6 +63,7 @@
   <section>
   <h2>Mentions légales</h2>
   <h3>Images</h3>
+  <p>Grégory Ferreux</p>
   <p>les images de fond sont libres de droit et proviennent de "mobilegamegraphics.itch.io"</p>
   <h2>Données personnelles</h2>
   <h2></h2>
