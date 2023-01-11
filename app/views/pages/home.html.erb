@@ -1,31 +1,71 @@
-<header class="banner d-flex align-items-center align-items-lg-start flex-column justify-content-center">
-    <h1>Rémi Tondeux</h1>
-    <p id="job-title"></p>
-  </header>
+<%= render "banner" %>
 <nav>
   <%# render navigation  %>
 </nav>
-<div class="container">
-  <section>
-    <h1></h1>
-    <%= render "wall"  %>
+<main class="container">
+  <section class="projets">
+    <h2>Projets</h2>
   </section>
-  <section class="text-center">
-    <h1></h1>
-    <%# render section  %>
+  <section class="presentation">
+    <h2>Présentation</h2>
+    <%# CV %>
+    <p>capable de travailler seul ou en équipe pluridisciplinaire</p>
+  </section>
+  <section class="expertise">
+    <h2>Mes domaines d'expertise</h2>
     <div class="row">
       <div class="col">
-        <%#= render "gears" %>
+        <h3>Phase de conception de l'application : </h3>
+        <ul>
+          <li>Analyse et définition du besoin</li>
+          <li>Cadrage du projet (fonctionnalités, délais et estimation budgétaire)</li>
+          <li>Maquettage, design UX/UI</li>
+          <li>Spécifications techniques</li>
+        </ul>
       </div>
       <div class="col">
-        <%#= render "van" %>
+        <%= render "gears" %>
+        <p class="info">Scroll me !</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <%= render "wall" %>
       </div>
       <div class="col">
+        <h3>Phase de développement :</h3>
+        <ul>
+          <li>Gestion de projet - respect de la qualité, délais et coûts</li>
+          <li>Développement back-end / front-end</li>
+          <li>Méthode agile, sprints et code-review</li>
+          <li>Testing</li>
+          <li>Mise en production en continu</li>
+        </ul>
+        <span>REJOUER L'ANIMATION</span>
       </div>
     </div>
-    <div>
-      <%#= render "van" %>
+    <div class="row">
+      <div class="col">
+        <h3>Phase de vie de d'application :</h3>
+        <ul>
+          <li>Maintenance</li>
+          <li>Développement de nouvelles fonctionnalités</li>
+        </ul>
+      </div>
+      <div class="col">
+        <%= render "van" %>
+
+      </div>
     </div>
-    <p>les images de fond sont libres de droit et proviennent de "mobilegamegraphics.itch.io"</p>
   </section>
-</div>
+  <section class="contact">
+    <h2>Contact</h2>
+  </section>
+  <section>
+  <h2>Mentions légales</h2>
+  <h3>Images</h3>
+  <p>les images de fond sont libres de droit et proviennent de "mobilegamegraphics.itch.io"</p>
+  <h2>Données personnelles</h2>
+  <h2></h2>
+  </section>
+</main>
