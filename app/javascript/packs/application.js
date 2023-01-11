@@ -14,3 +14,9 @@ ActiveStorage.start()
 
 import "controllers"
 import "bootstrap"
+
+import { DynamicJobTitle } from '../components/job_title';
+
+document.addEventListener('turbolinks:load', () => {
+  DynamicJobTitle();
+});

@@ -9,3 +9,42 @@
 body::-webkit-scrollbar {
   display: none;
 }
+
+.banner {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(banner.jpg);
+  height: 100vh;
+  background-position: 63% 75%;
+  background-size: cover;
+
+  h1 {
+    font-family: var(--ff-handwrite);
+    letter-spacing: 3px;
+    font-size: var(--fs-xxl);
+    color: white;
+    text-shadow: 0 0 2px black;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-family: var(--ff-neutral);
+    font-size: var(--fs-m);
+    color: white;
+    text-shadow: 0 0 2px black;
+  }
+}
+
+#job-title {
+  height: 50px;
+}
+
+@media (min-width: 40em) {
+  .banner {
+    background-position: center;
+    background-size: cover;
+    padding-left: 40px;
+
+    h1 {
+      margin-bottom: 18px;
+    }
+  }
+}
