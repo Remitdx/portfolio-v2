@@ -1,0 +1,15 @@
+<%= render "pages/navigation" %>
+<h1>Partie n°<%= @game.id %> en cours !</h1>
+
+<%= simple_form_for(@player) do |f| %>
+  <%= f.input :pseudo %>
+  <%= f.hidden_field :game_id, :value => @game.id %>
+  <%= f.submit "Ajouter un joueur", class:"btn btn-primary" %>
+<% end %>
+
+<p>Liste de joueurs :</p>
+<ul>
+  <% @players.each do |player| %>
+    <li><%= player.pseudo %></li>
+  <% end %>
+</ul>
