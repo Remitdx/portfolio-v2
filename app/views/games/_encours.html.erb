@@ -1,5 +1,18 @@
 <ul>
-  <% @players.each do |player, i| %>
+  <% @players.each do |player| %>
     <li><%= player.pseudo  %>, PV : <%= player.pv %></li>
   <% end %>
 </ul>
+
+<p>C'est au tour de <strong><%= @players.first.pseudo %></strong> de jouer !</p>
+
+<%= link_to "Jeter les dés", game_play_path(@game), class:"btn btn-info"%>
+
+<% unless @dices.nil? %>
+  <% somme = 0 %>
+  <% @dices.each do |dice| %>
+    <%= dice.value %>
+    <% somme += dice.value %>
+  <% end %>
+  <%= somme %>
+<% end %>

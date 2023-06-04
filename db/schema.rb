@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_04_072908) do
+ActiveRecord::Schema.define(version: 2023_06_04_115711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dices", force: :cascade do |t|
+    t.bigint "game_id", null: false
+    t.integer "value"
+    t.boolean "locked"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["game_id"], name: "index_dices_on_game_id"
+  end
 
   create_table "games", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -30,5 +39,6 @@ ActiveRecord::Schema.define(version: 2023_06_04_072908) do
     t.index ["game_id"], name: "index_players_on_game_id"
   end
 
+  add_foreign_key "dices", "games"
   add_foreign_key "players", "games"
 end
