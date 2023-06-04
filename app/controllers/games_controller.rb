@@ -10,8 +10,21 @@ class GamesController < ApplicationController
   end
 
   def new
-    @game = Game.create
+    @game = Game.create(statut:"en préparation")
     redirect_to game_path(@game)
+  end
+
+  def rules
+  end
+
+  def update
+    @game = @game = Game.find_by(id: params[:id])
+    @game.statut = params[:game][:statut]
+    if @game.save
+      redirect_to game_path(@game)
+    else
+      flash[:notice] = "Something went wrong !"
+    end
   end
 
 end

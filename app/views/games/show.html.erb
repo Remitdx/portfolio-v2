@@ -1,15 +1,13 @@
 <%= render "pages/navigation" %>
-<h1>Partie n°<%= @game.id %> en cours !</h1>
+<h1>Partie n°<%= @game.id %> <%= @game.statut %></h1>
 
-<%= simple_form_for(@player) do |f| %>
-  <%= f.input :pseudo %>
-  <%= f.hidden_field :game_id, :value => @game.id %>
-  <%= f.submit "Ajouter un joueur", class:"btn btn-primary" %>
+<%= link_to 'Règles du jeu', game_rules_path(@game), class:"btn btn-success", target: :_blank %>
+
+<% case @game.statut %>
+  <%  when  "en préparation" %>
+    <%= render 'preparation' %>
+  <% when "en cours" %>
+    <%= render 'encours' %>
+  <% when "terminée" %>
+    <%= render 'terminee' %>
 <% end %>
-
-<p>Liste de joueurs :</p>
-<ul>
-  <% @players.each do |player| %>
-    <li><%= player.pseudo %></li>
-  <% end %>
-</ul>
