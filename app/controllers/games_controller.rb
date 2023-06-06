@@ -8,6 +8,9 @@ class GamesController < ApplicationController
     @player = Player.new
     @players = Player.where(game_id: params[:id])
     @dices = Dice.where(game_id: params[:id])
+    @turn = 1
+    @current_player = @players.first
+    @sum = 0
   end
 
   def new

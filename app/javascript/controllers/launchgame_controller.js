@@ -10,5 +10,5 @@ export default class extends Controller {
       this.submitTarget.classList.remove("btn-secondary");
       this.submitTarget.classList.add("btn-primary");
       }
-    }
+    };
 }

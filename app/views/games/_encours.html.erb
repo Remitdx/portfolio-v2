@@ -1,18 +1,29 @@
-<ul>
-  <% @players.each do |player| %>
-    <li><%= player.pseudo  %>, PV : <%= player.pv %></li>
+<div data-controller="scorespannel">
+  <span class="btn btn-primary" data-scorespannel-target="btn" data-action="click->scorespannel#toggle">Scores</span>
+  <ul class="list" data-scorespannel-target="list">
+    <% @players.each do |player| %>
+      <li><%= player.pseudo  %>, PV : <%= player.pv %></li>
+    <% end %>
+  </ul>
+</div>
+
+<div class="tapisdejeu" data-controller="gamearea">
+  <p>C'est au tour de <strong><%= @current_player.pseudo %></strong> de jouer !</p>
+
+  <%= link_to "Jeter les dés", game_play_path(@game), class:"btn btn-info"%>
+
+  <% unless @dices == [] %>
+    <% @dices.each do |dice| %>
+      <span class="dice" data-gamearea-target="dice" data-action="click->gamearea#lockdice">
+              <%= dice.value %>
+              <%= simple_form_for(dice) do |f| %>
+                <%= f.hidden_field :id, :value => dice.id %>
+                <%= f.hidden_field :locked, :value => "en cours" %>
+                <%= f.submit "toggle lock" %>
+              <% end %>
+      </span>
+      <% @sum += dice.value %>
+    <% end %>
+    <%= @sum %>
   <% end %>
-</ul>
-
-<p>C'est au tour de <strong><%= @players.first.pseudo %></strong> de jouer !</p>
-
-<%= link_to "Jeter les dés", game_play_path(@game), class:"btn btn-info"%>
-
-<% unless @dices.nil? %>
-  <% somme = 0 %>
-  <% @dices.each do |dice| %>
-    <%= dice.value %>
-    <% somme += dice.value %>
-  <% end %>
-  <%= somme %>
-<% end %>
+</div>

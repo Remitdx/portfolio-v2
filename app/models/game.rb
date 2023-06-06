@@ -1,6 +1,6 @@
 class Game < ApplicationRecord
   has_many :players, dependent: :destroy # limiter nb joueur à 8
-  has_many :dices
+  has_many :dices, dependent: :destroy
 
   validates :statut, presence: true,
             inclusion: { in: ["en préparation", "en cours", "terminée"] }
