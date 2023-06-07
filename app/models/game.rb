@@ -11,9 +11,9 @@ class Game < ApplicationRecord
     end
   end
 
-  def set_5_new_dices(game_id)
+  def set_new_dices(n, game_id)
     dices = []
-    5.times do
+    n.times do
       dice = Dice.new(game_id: game_id, value: rand(1..6), locked: false)
       dice.save
       dices << dice

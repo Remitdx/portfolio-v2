@@ -35,7 +35,7 @@ class GamesController < ApplicationController
     @game = Game.find_by(id: params[:game_id])
     @dices = Dice.where(game_id: params[:game_id])
     if @dices == []
-      @game.set_5_new_dices(params[:game_id])
+      @game.set_new_dices(5, params[:game_id])
     else
       @game.throw_unlocked_dices(@dices)
     end
