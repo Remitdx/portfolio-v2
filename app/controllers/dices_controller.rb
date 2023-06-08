@@ -1,10 +1,14 @@
 class DicesController < ApplicationController
 
   def update
-    @dice = Dice.where(id: params[:id])
-    params[:dice][:locked] == 'false' ? @dice.update(locked: 'true') : @dice.update(locked: 'false')
+    @dice = Dice.find(params[:id])
+    @dice.locked == true ? @dice.update(locked: false) : @dice.update(locked: true)
+  end
 
-    redirect_to game_path(params[:dice][:game_id])
+  private
+
+  def dice_params
+    params.require(:dice).permit(:game_id, :value, :locked)
   end
 
 end

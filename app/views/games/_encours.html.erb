@@ -16,13 +16,10 @@
     <% unless @dices == [] %>
       <% @dices.each do |dice| %>
         <div class="dice" id="<%= dice.id %>" data-gamearea-target="dice" data-action="click->gamearea#lockdice">
-          <span><%= dice.value %></span>
+          <span><%= dice.value %> -- <%= dice.locked %></span>
           <div>
-            <%= simple_form_for(dice) do |f| %>
-              <%= f.hidden_field :id, :value => dice.id %>
-              <%= f.hidden_field :locked, :value => dice.locked %>
-              <%= f.hidden_field :game_id, :value => dice.game_id %>
-              <%= f.submit "Lock dice" %>
+            <%= simple_form_for(dice, data: {gamearea_target: "form" }, remote: true) do |f| %>
+              <%= f.submit "Lock dice"%>
             <% end %>
           </div>
         </div>
