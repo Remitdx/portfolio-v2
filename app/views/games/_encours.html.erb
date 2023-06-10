@@ -10,22 +10,14 @@
 <div class="tapisdejeu" data-controller="gamearea">
   <p>C'est au tour de <strong><%= @current_player.pseudo %></strong> de jouer !</p>
 
-  <%= link_to "Jeter les dés", game_play_path(@game), class:"btn btn-info"%>
+  <%= simple_form_for(@game,
+                      data: {action: "click->gamearea#throwdices" }
+                      ) do |f| %>
+    <%= f.hidden_field :turn, :value => @game.turn %>
+    <%= f.hidden_field :game_id, :value => @game.id %>
+    <%= f.hidden_field :current_player, :value => @game.current_player %>
+    <%= f.submit "Jeter les dés -- tour #{@game.turn}", class: "btn btn-info" %>
+  <% end %>
 
-  <div data-gamearea-target="list">
-    <% unless @dices == [] %>
-      <% @dices.each do |dice| %>
-        <div class="dice" id="<%= dice.id %>" data-gamearea-target="dice" data-action="click->gamearea#lockdice">
-          <span><%= dice.value %> -- <%= dice.locked %></span>
-          <div>
-            <%= simple_form_for(dice, data: {gamearea_target: "form" }, remote: true) do |f| %>
-              <%= f.submit "Lock dice"%>
-            <% end %>
-          </div>
-        </div>
-        <% @sum += dice.value %>
-      <% end %>
-      <%= @sum %>
-    <% end %>
-  </div>
+  <%= render 'list_dices' %>
 </div>

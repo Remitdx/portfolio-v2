@@ -5,6 +5,16 @@ class Game < ApplicationRecord
   validates :statut, presence: true,
             inclusion: { in: ["en préparation", "en cours", "terminée"] }
 
+
+  def play(game)
+    dices = Dice.where(game_id: game.id)
+    if dices == []
+      game.set_new_dices(5, game.id)
+    else
+      game.throw_unlocked_dices(dices)
+    end
+  end
+
   def throw_unlocked_dices(dices)
     dices.each do |dice|
       dice.update!(value: rand(1..6)) if dice.locked == false

@@ -8,13 +8,12 @@ class GamesController < ApplicationController
     @player = Player.new
     @players = Player.where(game_id: params[:id])
     @dices = Dice.where(game_id: params[:id])
-    @turn = 1
-    @current_player = @players.first
+    @current_player = @game.current_player.present? ? @game.current_player : @players.first
     @sum = 0
   end
 
   def new
-    @game = Game.create(statut:"en préparation")
+    @game = Game.create(statut:"en préparation", turn: 1)
     redirect_to game_path(@game)
   end
 
@@ -23,23 +22,25 @@ class GamesController < ApplicationController
 
   def update
     @game = Game.find_by(id: params[:id])
-    @game.statut = params[:game][:statut]
-    if @game.save
-      redirect_to game_path(@game)
+    if params[:game][:turn].present? && params[:game][:turn].to_i.positive?
+      @game.play(@game)
+      @game.turn += 1 if @game.turn < 5
+      if @game.save
+        redirect_to game_path(@game)
+      else
+        redirect_to root_path
+        flash[:notice] = "Something went wrong !"
+      end
     else
-      flash[:notice] = "Something went wrong !"
+      @game.statut = params[:game][:statut]
+      if @game.save
+        redirect_to game_path(@game)
+      else
+        flash[:notice] = "Something went wrong !"
+      end
     end
   end
 
-  def play
-    @game = Game.find_by(id: params[:game_id])
-    @dices = Dice.where(game_id: params[:game_id])
-    if @dices == []
-      @game.set_new_dices(5, params[:game_id])
-    else
-      @game.throw_unlocked_dices(@dices)
-    end
-    redirect_to game_path(@game)
-  end
+
 
 end
