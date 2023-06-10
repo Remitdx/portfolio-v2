@@ -8,12 +8,11 @@ class GamesController < ApplicationController
     @player = Player.new
     @players = Player.where(game_id: params[:id])
     @dices = Dice.where(game_id: params[:id])
-    @current_player = @game.current_player.present? ? @game.current_player : @players.first
-    @sum = 0
+    @game.update(current_player: @players.first.pseudo) if @game.current_player.nil? && @players.present? && @game.current_player != @players.first.pseudo
   end
 
   def new
-    @game = Game.create(statut:"en préparation", turn: 1)
+    @game = Game.create(statut:"en préparation", turn: 0)
     redirect_to game_path(@game)
   end
 
@@ -22,15 +21,27 @@ class GamesController < ApplicationController
 
   def update
     @game = Game.find_by(id: params[:id])
-    if params[:game][:turn].present? && params[:game][:turn].to_i.positive?
-      @game.play(@game)
-      @game.turn += 1 if @game.turn < 5
+    @dices = Dice.where(game_id: params[:id])
+
+    if params[:game][:turn].present? && params[:game][:turn].to_i.between?(0,4) && @game.still_unlocked_dices?(@dices)
+      @game.throw_dices(@game)
+      @game.turn += 1
       if @game.save
         redirect_to game_path(@game)
       else
         redirect_to root_path
         flash[:notice] = "Something went wrong !"
       end
+
+    elsif params[:game][:turn].present?
+      @game.next_player(@game)
+      if @game.save
+        redirect_to game_path(@game)
+      else
+        redirect_to root_path
+        flash[:notice] = "Something went wrong !"
+      end
+
     else
       @game.statut = params[:game][:statut]
       if @game.save
