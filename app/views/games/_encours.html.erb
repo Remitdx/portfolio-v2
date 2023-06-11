@@ -8,16 +8,16 @@
 </div>
 
 <div class="tapisdejeu" data-controller="gamearea">
-  <p>C'est au tour de <strong><%= @game.current_player %></strong> de jouer !</p>
 
-  <%= simple_form_for(@game,
-                      data: {action: "click->gamearea#throwdices" }
-                      ) do |f| %>
-    <%= f.hidden_field :turn, :value => @game.turn %>
-    <%= f.hidden_field :game_id, :value => @game.id %>
-    <%= f.hidden_field :current_player, :value => @game.current_player %>
-    <%= f.submit "Jeter les dés -- tour #{@game.turn}", class: "btn btn-info" %>
+  <% case @game.substatut %>
+    <%  when "roll_five_dices" %>
+      <%= render 'roll_five_dices' %>
+    <% when "damage_yourself" %>
+      <%= render 'dmg_yourself' %>
+    <% when "damage_others" %>
+      <%= render 'dmg_others' %>
+    <% when "heal_yourself" %>
+      <%= render 'heal_yourself' %>
   <% end %>
 
-  <%= render 'list_dices' %>
 </div>

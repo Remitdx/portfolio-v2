@@ -1,0 +1,15 @@
+<p>Bien joué <strong><%= @game.current_player %></strong> ! Tu as obtenu un score de <strong><%= @game.sum %> points</strong>.</p>
+<p>Tu peux donc lancer un dé pour te soigner !</p>
+<%= simple_form_for(@dice,
+                    data: { gamearea_target: "form" },
+                    remote: true) do |f| %>
+  <%= f.hidden_field :game_id, :value => @game.id %>
+  <%= f.submit "Lancer le dé", class: "btn btn-primary", data: { action: "click->gamearea#heal", gamearea_target: "btnHeal" } %>
+<% end %>
+<div data-gamearea-target="insertHeal">
+</div>
+
+<%= simple_form_for(@game) do |f| %>
+  <%= f.hidden_field :substatut, :value => @game.substatut %>
+  <%= f.submit "Fin du tour", class: "btn btn-info disabled", data: { gamearea_target: 'btn' } %>
+<% end %>

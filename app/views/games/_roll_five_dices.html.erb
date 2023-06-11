@@ -1,0 +1,14 @@
+<p>C'est au tour de <strong><%= @game.current_player %></strong> de jouer !</p>
+
+<p data-gamearea-target="turn">lancé n°<%= @game.turn %> !</p>
+<%= simple_form_for(@game) do |f| %>
+  <%= f.hidden_field :turn, :value => @game.turn %>
+  <%= f.hidden_field :game_id, :value => @game.id %>
+  <%= f.hidden_field :sum, :value => @game.sum %>
+  <%= f.hidden_field :current_player, :value => @game.current_player %>
+  <%= f.submit "#{@game.turn == 5 ? 'Valider les dés' : 'Jeter les dés' }", class: "btn btn-info", data: { gamearea_target: 'btn' } %>
+<% end %>
+
+<%= render 'list_dices' %>
+
+SCORE : <%= @game.sum %>

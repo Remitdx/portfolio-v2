@@ -1,0 +1,6 @@
+<h1>dmg others</h1>
+
+<%= simple_form_for(@game) do |f| %>
+  <%= f.hidden_field :substatut, :value => @game.substatut %>
+  <%= f.submit "Fin du tour", class: "btn btn-info", data: { gamearea_target: 'btn' } %>
+<% end %>

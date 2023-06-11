@@ -5,11 +5,41 @@ class Game < ApplicationRecord
   validates :statut, presence: true,
             inclusion: { in: ["en préparation", "en cours", "terminée"] }
 
+  def action(game)
+    if game.sum == 11 || game.sum == 24
+      game.update(substatut: "heal_yourself")
+    elsif game.sum < 11 || game.sum > 24
+      game.update(substatut: "damage_others")
+    else
+      game.update(substatut: "damage_yourself")
+    end
+  end
+
+  def calculate_score(dices)
+    sum = 0
+    dices.each do |dice|
+      sum += dice.value
+    end
+    return sum
+  end
+
+def damage_others() # RAF
+    damage = max((game.sum - 24).abs(), (game.sum - 11).abs)
+  end
+
+  def damage_yourself() # RAF
+  end
+
+  def heal_yourself(player, amount)
+    player.update(pv: player.pv + amount)
+  end
+
   def next_player(game)
     players = Player.where(game_id: game.id)
     a = players.map { |player| player[:pseudo] }
     game.current_player = a[((a.index(game.current_player) + 1) % a.length)]
     game.turn = 0
+    game.substatut = "roll_five_dices"
     game.save
     dices = Dice.where(game_id: game.id)
     dices.each do |dice|

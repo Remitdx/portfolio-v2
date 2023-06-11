@@ -5,14 +5,16 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find_by(id: params[:id])
+    @dice = Dice.new
     @player = Player.new
     @players = Player.where(game_id: params[:id])
     @dices = Dice.where(game_id: params[:id])
     @game.update(current_player: @players.first.pseudo) if @game.current_player.nil? && @players.present? && @game.current_player != @players.first.pseudo
+    @game.update(sum: @game.calculate_score(@dices)) if @dices != []
   end
 
   def new
-    @game = Game.create(statut:"en préparation", turn: 0)
+    @game = Game.create(statut:"en préparation", substatut:"roll_five_dices", turn: 0)
     redirect_to game_path(@game)
   end
 
@@ -22,6 +24,7 @@ class GamesController < ApplicationController
   def update
     @game = Game.find_by(id: params[:id])
     @dices = Dice.where(game_id: params[:id])
+    @player = Player.find_by(game_id: @game.id, pseudo: @game.current_player)
 
     if params[:game][:turn].present? && params[:game][:turn].to_i.between?(0,4) && @game.still_unlocked_dices?(@dices)
       @game.throw_dices(@game)
@@ -34,14 +37,22 @@ class GamesController < ApplicationController
       end
 
     elsif params[:game][:turn].present?
-      @game.next_player(@game)
-      if @game.save
-        redirect_to game_path(@game)
-      else
-        redirect_to root_path
-        flash[:notice] = "Something went wrong !"
-      end
+      @game.action(@game)
+      redirect_to game_path(@game)
 
+    elsif params[:game][:substatut].present?
+      case params[:game][:substatut]
+        when "heal_yourself"
+          @amount = Dice.last.value
+          @game.heal_yourself(@player, @amount)
+          Dice.last.destroy
+        when "damage_yourself"
+          # @game.damage_yourself(player)
+        when "damage_others"
+          # @game.damage_others(player)
+        end
+      @game.next_player(@game)
+      redirect_to game_path(@game)
     else
       @game.statut = params[:game][:statut]
       if @game.save
@@ -51,7 +62,5 @@ class GamesController < ApplicationController
       end
     end
   end
-
-
 
 end

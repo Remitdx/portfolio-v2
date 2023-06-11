@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_06_070124) do
+ActiveRecord::Schema.define(version: 2023_06_11_103453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2023_06_06_070124) do
     t.integer "turn"
     t.string "current_player"
     t.integer "sum"
+    t.string "substatut"
   end
 
   create_table "players", force: :cascade do |t|
