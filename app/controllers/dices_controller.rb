@@ -12,7 +12,7 @@ class DicesController < ApplicationController
 
   def update
     @dice = Dice.find(params[:id])
-    @dice.locked == true ? @dice.update(locked: false) : @dice.update(locked: true)
+    @dice.state == 'keep' ? @dice.update(state: 'free') : @dice.update(state: 'keep')
     respond_to do |format|
       format.html {  }
       format.json { render :json => @dice }

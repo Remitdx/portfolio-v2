@@ -2,7 +2,7 @@
     <% unless @dices == [] %>
       <% @dices.each do |dice| %>
         <%= simple_form_for(dice,
-                            html: { class: "dice #{'locked' if dice.locked }"},
+                            html: { class: "dice #{'locked' unless dice.state == 'free' }"},
                             data: {gamearea_target: "form",
                                     action: "click->gamearea#lockdice" },
                             remote: true

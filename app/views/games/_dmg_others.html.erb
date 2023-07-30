@@ -2,7 +2,14 @@
 <p>Tu peux donc attaquer tes adversaires avec la valeur <strong><%= @game.damage %></strong> !</p>
 <p>Rejette les dès tant que tu obtiens des <strong><%= @game.damage %></strong>.</p>
 
-<%= #simple_form_for(@attack)  %>
+<%= simple_form_for(@dice,
+                    data: { gamearea_target: "form" },
+                    remote: true) do |f| %>
+  <%= f.hidden_field :game_id, :value => @game.id %>
+  <%= f.submit "Lancer les dés", class: "btn btn-primary", data: { action: "click->gamearea#attack", gamearea_target: "btnAttack" } %>
+<% end %>
+<div data-gamearea-target="insertAttackInfo">
+</div>
 
 <%= simple_form_for(@game) do |f| %>
   <%= f.hidden_field :substatut, :value => @game.substatut %>

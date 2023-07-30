@@ -6,7 +6,7 @@
   <%= f.hidden_field :game_id, :value => @game.id %>
   <%= f.submit "Lancer le dé", class: "btn btn-primary", data: { action: "click->gamearea#heal", gamearea_target: "btnHeal" } %>
 <% end %>
-<div data-gamearea-target="insertHeal">
+<div data-gamearea-target="insertHealInfo">
 </div>
 
 <%= simple_form_for(@game) do |f| %>

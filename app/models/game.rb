@@ -43,9 +43,7 @@ class Game < ApplicationRecord
     players = Player.where(game_id: game.id)
     a = players.map { |player| player[:pseudo] }
     game.current_player = a[((a.index(game.current_player) + 1) % a.length)]
-    game.turn = 0
-    game.substatut = "roll_five_dices"
-    game.save
+    game.update!(turn: 0, substatut: "roll_five_dices", sum: nil)
     dices = Dice.where(game_id: game.id)
     dices.destroy_all
   end
@@ -53,7 +51,7 @@ class Game < ApplicationRecord
   def set_new_dices(n, game_id)
     dices = []
     n.times do
-      dice = Dice.new(game_id: game_id, value: rand(1..6), locked: false)
+      dice = Dice.new(game_id: game_id, value: rand(1..6), state: 'free')
       dice.save
       dices << dice
     end
@@ -62,12 +60,13 @@ class Game < ApplicationRecord
 
   def still_unlocked_dices?(dices)
     return true if dices == []
-    copy_dices = dices.map { |dice| dice[:locked] }
-    return copy_dices.include?(false) ? true : false
+    copy_dices = dices.map { |dice| dice[:state] }
+    return copy_dices.include?('free') ? true : false
   end
 
   def throw_dices(game)
     dices = Dice.where(game_id: game.id)
+    dices.each { |dice| dice.convert_keep_to_locked_dice }
     if dices == []
       game.set_new_dices(5, game.id)
     else
@@ -77,7 +76,7 @@ class Game < ApplicationRecord
 
   def throw_unlocked_dices(dices)
     dices.each do |dice|
-      dice.update!(value: rand(1..6)) if dice.locked == false
+      dice.update!(value: rand(1..6)) if dice.state === 'free'
     end
   end
 end
