@@ -23,11 +23,16 @@ class Game < ApplicationRecord
     return sum
   end
 
-def damage_others() # RAF
-    damage = max((game.sum - 24).abs(), (game.sum - 11).abs)
+  def damage_amount
+    return [(self.sum - 24).abs(), (self.sum - 11).abs].min
   end
 
-  def damage_yourself() # RAF
+  def damage_others(player, damage)
+    # RAF
+  end
+
+  def damage_yourself(player, damage)
+    player.update(pv: player.pv - damage)
   end
 
   def heal_yourself(player, amount)
@@ -42,9 +47,7 @@ def damage_others() # RAF
     game.substatut = "roll_five_dices"
     game.save
     dices = Dice.where(game_id: game.id)
-    dices.each do |dice|
-      dice.update(locked: false)
-    end
+    dices.destroy_all
   end
 
   def set_new_dices(n, game_id)

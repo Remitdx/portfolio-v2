@@ -1,6 +1,10 @@
-<h1>dmg others</h1>
+<p>Bien joué <strong><%= @game.current_player %></strong> ! Tu as obtenu un score de <strong><%= @game.sum %> points</strong>.</p>
+<p>Tu peux donc attaquer tes adversaires avec la valeur <strong><%= @game.damage %></strong> !</p>
+<p>Rejette les dès tant que tu obtiens des <strong><%= @game.damage %></strong>.</p>
+
+<%= #simple_form_for(@attack)  %>
 
 <%= simple_form_for(@game) do |f| %>
   <%= f.hidden_field :substatut, :value => @game.substatut %>
-  <%= f.submit "Fin du tour", class: "btn btn-info", data: { gamearea_target: 'btn' } %>
+  <%= f.submit "Fin du tour", class: "btn btn-info disabled", data: { gamearea_target: 'btn' } %>
 <% end %>

@@ -11,6 +11,7 @@ class GamesController < ApplicationController
     @dices = Dice.where(game_id: params[:id])
     @game.update(current_player: @players.first.pseudo) if @game.current_player.nil? && @players.present? && @game.current_player != @players.first.pseudo
     @game.update(sum: @game.calculate_score(@dices)) if @dices != []
+    @game.update(damage: @game.damage_amount) unless @game.sum.nil?
   end
 
   def new
@@ -47,9 +48,9 @@ class GamesController < ApplicationController
           @game.heal_yourself(@player, @amount)
           Dice.last.destroy
         when "damage_yourself"
-          # @game.damage_yourself(player)
+          @game.damage_yourself(@player, @game.damage)
         when "damage_others"
-          # @game.damage_others(player)
+          @game.damage_others(@player, @game.damage)
         end
       @game.next_player(@game)
       redirect_to game_path(@game)

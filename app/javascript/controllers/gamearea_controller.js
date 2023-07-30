@@ -43,7 +43,7 @@ export default class extends Controller {
         this.btnHealTarget.classList.add('disabled');
         this.insertHealTarget.classList.add('dice');
         this.insertHealTarget.insertAdjacentHTML("beforeend", data.value);
-        this.insertHealTarget.insertAdjacentHTML("afterend", `Yaaay ! Tu te soignes de ${data.value} points !`);
+        this.insertHealTarget.insertAdjacentHTML("afterend", `Yaaay ! Tu te soignes de ${data.value} ${data.value === 1 ? "point" : "points"} !`);
         this.btnTarget.classList.remove('disabled');
       })
 

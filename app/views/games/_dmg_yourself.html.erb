@@ -1,6 +1,8 @@
-<h1>dmg urself</h1>
+<p>Aïe, <strong><%= @game.current_player %></strong> ! Tu as obtenu un score de <strong><%= @game.sum %> points</strong>.</p>
+<p>Tu t'infliges toi même <strong><%= @game.damage %></strong> <%= "point".pluralize(@game.damage) %> de dégat ... C'est ballot !</p>
 
 <%= simple_form_for(@game) do |f| %>
   <%= f.hidden_field :substatut, :value => @game.substatut %>
+  <%= f.hidden_field :damage, :value => @game.damage %>
   <%= f.submit "Fin du tour", class: "btn btn-info", data: { gamearea_target: 'btn' } %>
 <% end %>

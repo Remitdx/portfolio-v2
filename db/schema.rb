@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_11_103453) do
+ActiveRecord::Schema.define(version: 2023_07_30_085515) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2023_06_11_103453) do
     t.string "current_player"
     t.integer "sum"
     t.string "substatut"
+    t.integer "damage"
   end
 
   create_table "players", force: :cascade do |t|
