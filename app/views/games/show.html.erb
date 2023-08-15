@@ -4,7 +4,7 @@
 <%= link_to 'Règles du jeu', game_rules_path(@game), class:"btn btn-success", target: :_blank %>
 
 <% case @game.statut %>
-  <%  when  "en préparation" %>
+  <% when  "en préparation" %>
     <%= render 'preparation' %>
   <% when "en cours" %>
     <%= render 'encours' %>

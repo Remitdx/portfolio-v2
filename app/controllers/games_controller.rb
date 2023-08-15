@@ -15,7 +15,7 @@ class GamesController < ApplicationController
   end
 
   def new
-    @game = Game.create(statut:"en préparation", substatut:"roll_five_dices", turn: 0)
+    @game = Game.create(statut: "en préparation", substatut: "roll_five_dices", turn: 0)
     redirect_to game_path(@game)
   end
 
@@ -27,7 +27,7 @@ class GamesController < ApplicationController
     @dices = Dice.where(game_id: params[:id])
     @player = Player.find_by(game_id: @game.id, pseudo: @game.current_player)
 
-    if params[:game][:turn].present? && params[:game][:turn].to_i.between?(0,4) && @game.still_unlocked_dices?(@dices)
+    if params[:game][:turn].present? && params[:game][:turn].to_i.between?(0, 4) && @game.still_unlocked_dices?(@dices)
       @game.throw_dices(@game)
       @game.turn += 1
       if @game.save
@@ -43,15 +43,15 @@ class GamesController < ApplicationController
 
     elsif params[:game][:substatut].present?
       case params[:game][:substatut]
-        when "heal_yourself"
-          @amount = Dice.last.value
-          @game.heal_yourself(@player, @amount)
-          Dice.last.destroy
-        when "damage_yourself"
-          @game.damage_yourself(@player, @game.damage)
-        when "damage_others"
-          @game.damage_others(@player, @game.damage)
-        end
+      when "heal_yourself"
+        @amount = Dice.last.value
+        @game.heal_yourself(@player, @amount)
+        Dice.last.destroy
+      when "damage_yourself"
+        @game.damage_yourself(@player, @game.damage)
+      when "damage_others"
+        @game.damage_others(@player, @game.damage)
+      end
       @game.next_player(@game)
       redirect_to game_path(@game)
     else
@@ -63,5 +63,4 @@ class GamesController < ApplicationController
       end
     end
   end
-
 end

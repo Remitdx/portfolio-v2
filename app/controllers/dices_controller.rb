@@ -1,5 +1,4 @@
 class DicesController < ApplicationController
-
   skip_before_action :verify_authenticity_token, only: [:create, :update]
 
   def create
@@ -18,5 +17,4 @@ class DicesController < ApplicationController
       format.json { render :json => @dice }
     end
   end
-
 end

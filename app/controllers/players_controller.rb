@@ -5,18 +5,16 @@ class PlayersController < ApplicationController
     @player.pseudo.capitalize!
     @player.pv = 30
     if @player.save
-      redirect_to game_path(player_params[:game_id])
       flash[:notice] = "A new player enter the game !"
     else
-      redirect_to game_path(player_params[:game_id])
       flash[:alert] = @player.errors[:pseudo].first
     end
+    redirect_to game_path(player_params[:game_id])
   end
 
-private
+  private
 
   def player_params
     params.require(:player).permit(:pseudo, :game_id)
   end
-
 end

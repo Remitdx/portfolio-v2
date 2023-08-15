@@ -2,8 +2,7 @@ class Game < ApplicationRecord
   has_many :players, dependent: :destroy # limiter nb joueur à 8
   has_many :dices, dependent: :destroy
 
-  validates :statut, presence: true,
-            inclusion: { in: ["en préparation", "en cours", "terminée"] }
+  validates :statut, presence: true, inclusion: { in: ["en préparation", "en cours", "terminée"] }
 
   def action(game)
     if game.sum == 11 || game.sum == 24
@@ -24,7 +23,7 @@ class Game < ApplicationRecord
   end
 
   def damage_amount
-    return [(self.sum - 24).abs(), (self.sum - 11).abs].min
+    return [(sum - 24).abs, (sum - 11).abs].min
   end
 
   def damage_others(player, damage)
@@ -48,9 +47,9 @@ class Game < ApplicationRecord
     dices.destroy_all
   end
 
-  def set_new_dices(n, game_id)
+  def set_new_dices(number, game_id)
     dices = []
-    n.times do
+    number.times do
       dice = Dice.new(game_id: game_id, value: rand(1..6), state: 'free')
       dice.save
       dices << dice
@@ -60,8 +59,9 @@ class Game < ApplicationRecord
 
   def still_unlocked_dices?(dices)
     return true if dices == []
+
     copy_dices = dices.map { |dice| dice[:state] }
-    return copy_dices.include?('free') ? true : false
+    return copy_dices.include?('free')
   end
 
   def throw_dices(game)
@@ -76,7 +76,7 @@ class Game < ApplicationRecord
 
   def throw_unlocked_dices(dices)
     dices.each do |dice|
-      dice.update!(value: rand(1..6)) if dice.state === 'free'
+      dice.update!(value: rand(1..6)) if dice.state == 'free'
     end
   end
 end
